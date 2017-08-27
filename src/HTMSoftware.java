@@ -26,6 +26,9 @@ public class HTMSoftware extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        // Gather competitors information
+        getInfo();
+
         window = primaryStage;
         window.setTitle("Chương trình Huyền thoại Magellan");
 
@@ -73,7 +76,13 @@ public class HTMSoftware extends Application {
         return logo;
     }
 
-    private VBox createCompetitorInfo() {
+//    private VBox createCompetitorInfo() {
         //TODO: Make the left column be the name of 4 competitors, with names are input from user (enter at the beginning)
+
+//    }
+
+    private void getInfo() {
+        InfoBox infoBox = new InfoBox();
+        infoBox.display("Nhập dữ liệu thí sinh");
     }
 }
