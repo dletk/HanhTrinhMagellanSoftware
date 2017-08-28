@@ -1,13 +1,10 @@
 import javafx.application.Application;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -48,19 +45,9 @@ public class HTMSoftware extends Application {
         window.show();
     }
 
-    private GridButtonsQuestion makeGridButtons(int numRows, int numCols) {
-        // The grid to contains the all the question button
-//        GridPane gridButtons = new GridPane();
-//
-//        for (int row = 0; row < numRows; row++) {
-//            for (int col = 0; col < numCols; col++) {
-//                Button questionButton = new Button();
-//                questionButton.setStyle("-fx-background-color: palegreen; -fx-border-width: 0.5; -fx-border-color: black");
-//                GridPane.setConstraints(questionButton, col, row, 1, 1, HPos.CENTER, VPos.CENTER);
-//                gridButtons.getChildren().add(questionButton);
-//            }
-//        }
-        GridButtonsQuestion grid = new GridButtonsQuestion(6, 6);
+    private GridQuestionButtons makeGridButtons(int numRows, int numCols) {
+        // Create the grid of buttons
+        GridQuestionButtons grid = new GridQuestionButtons(6, 6);
         BorderPane.setMargin(grid, new Insets(0, 20, 0, 20));
 
         return grid;
