@@ -18,6 +18,8 @@ import javafx.stage.Stage;
 
 public class HTMSoftware extends Application {
 
+    private final String[] COLOR_BY_POSITION = {"RED", "YELLOW", "BLUE", "GREEN"};
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -25,7 +27,7 @@ public class HTMSoftware extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         // Gather competitors information
-        getInfo();
+        String[] competitors = getInfo();
 
         Stage window = primaryStage;
         window.setTitle("Chương trình Huyền thoại Magellan");
@@ -34,37 +36,39 @@ public class HTMSoftware extends Application {
         BorderPane mainLayout = new BorderPane();
 
         mainLayout.setTop(makeTopLogo());
-
+        mainLayout.setLeft(createCompetitorsInfo(competitors));
 
         // Create all buttons and add them to the grid, a 6x6 square
         mainLayout.setCenter(makeGridButtons(6, 6));
 
         // Setting the main scene
-        Scene mainScene = new Scene(mainLayout, 800, 600);
+        Scene mainScene = new Scene(mainLayout, 1200, 600);
 
         window.setScene(mainScene);
         window.show();
     }
 
-    private GridPane makeGridButtons(int numRows, int numCols) {
+    private GridButtonsQuestion makeGridButtons(int numRows, int numCols) {
         // The grid to contains the all the question button
-        GridPane gridButtons = new GridPane();
+//        GridPane gridButtons = new GridPane();
+//
+//        for (int row = 0; row < numRows; row++) {
+//            for (int col = 0; col < numCols; col++) {
+//                Button questionButton = new Button();
+//                questionButton.setStyle("-fx-background-color: palegreen; -fx-border-width: 0.5; -fx-border-color: black");
+//                GridPane.setConstraints(questionButton, col, row, 1, 1, HPos.CENTER, VPos.CENTER);
+//                gridButtons.getChildren().add(questionButton);
+//            }
+//        }
+        GridButtonsQuestion grid = new GridButtonsQuestion(6, 6);
+        BorderPane.setMargin(grid, new Insets(0, 20, 0, 20));
 
-        for (int row = 0; row < numRows; row++) {
-            for (int col = 0; col < numCols; col++) {
-                Button questionButton = new Button();
-                questionButton.setStyle("-fx-background-color: palegreen; -fx-border-width: 0.5; -fx-border-color: black");
-                GridPane.setConstraints(questionButton, col, row, 1, 1, HPos.CENTER, VPos.CENTER);
-                gridButtons.getChildren().add(questionButton);
-            }
-        }
-
-        return gridButtons;
+        return grid;
     }
 
     private Label makeTopLogo() {
-        Label logo = new Label("Phần thi về đích");
-        logo.setFont(Font.font("Times New Roman", FontWeight.EXTRA_BOLD, FontPosture.ITALIC, 45));
+        Label logo = new Label("Phần thi Chinh phục");
+        logo.setFont(Font.font("Times New Roman", FontWeight.EXTRA_BOLD, FontPosture.ITALIC, 100));
         logo.setTextFill(Color.valueOf("BLUE"));
 
         // The position of logo
@@ -74,14 +78,46 @@ public class HTMSoftware extends Application {
         return logo;
     }
 
-//    private VBox createCompetitorInfo() {
-        //TODO: Make the left column be the name of 4 competitors, with names are input from user (enter at the beginning)
+    private VBox createCompetitorsInfo(String[] competitors) {
+        VBox leftNamesTable = new VBox(50);
+        int pos = 0;
+        for (String competitor: competitors) {
+            HBox lineInfo = createIndivdualInfo(pos, competitor);
+            leftNamesTable.getChildren().add(lineInfo);
+            pos++;
+        }
 
-//    }
+        // Style the table name so it appears clear and easy to read
+        leftNamesTable.setMinWidth(200);
+        leftNamesTable.setPadding(new Insets(0, 0, 0, 20));
 
-    private void getInfo() {
+        return leftNamesTable;
+    }
+
+    private HBox createIndivdualInfo(int position, String name) {
+        String color = COLOR_BY_POSITION[position];
+        HBox lineOfInfo = new HBox(20);
+
+        // Name label
+        Label nameLabel = new Label(name.toUpperCase());
+        nameLabel.setFont(Font.font("Times New Roman", 30));
+        nameLabel.setMinWidth(300);
+        nameLabel.setTextFill(Color.web(COLOR_BY_POSITION[position]));
+        lineOfInfo.getChildren().add(nameLabel);
+
+        // Color button
+        Button colorButton = new Button();
+        colorButton.setStyle("-fx-background-color: "+color);
+        colorButton.setPrefWidth(30);
+        colorButton.setPrefHeight(30);
+        lineOfInfo.getChildren().add(colorButton);
+
+        return lineOfInfo;
+    }
+
+    private String[] getInfo() {
         InfoBox infoBox = new InfoBox();
         infoBox.display("Nhập dữ liệu thí sinh");
-        System.out.println(infoBox.getCompetitor1()+infoBox.getCompetitor2()+infoBox.getCompetitor3()+infoBox.getCompetitor4());
+        return infoBox.getCompetitors();
     }
 }

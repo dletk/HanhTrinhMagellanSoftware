@@ -75,19 +75,7 @@ public class InfoBox {
         window.close();
     }
 
-    public String getCompetitor1() {
-        return competitors[0];
-    }
-
-    public String getCompetitor2() {
-        return competitors[1];
-    }
-
-    public String getCompetitor3() {
-        return competitors[2];
-    }
-
-    public String getCompetitor4() {
-        return competitors[3];
+    public String[] getCompetitors() {
+        return competitors;
     }
 }
