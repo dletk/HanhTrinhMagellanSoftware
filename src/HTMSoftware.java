@@ -18,8 +18,6 @@ import javafx.stage.Stage;
 
 public class HTMSoftware extends Application {
 
-    Stage window;
-
     public static void main(String[] args) {
         launch(args);
     }
@@ -29,7 +27,7 @@ public class HTMSoftware extends Application {
         // Gather competitors information
         getInfo();
 
-        window = primaryStage;
+        Stage window = primaryStage;
         window.setTitle("Chương trình Huyền thoại Magellan");
 
         // The main layout for the software
@@ -84,5 +82,6 @@ public class HTMSoftware extends Application {
     private void getInfo() {
         InfoBox infoBox = new InfoBox();
         infoBox.display("Nhập dữ liệu thí sinh");
+        System.out.println(infoBox.getCompetitor1()+infoBox.getCompetitor2()+infoBox.getCompetitor3()+infoBox.getCompetitor4());
     }
 }

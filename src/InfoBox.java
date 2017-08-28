@@ -1,5 +1,7 @@
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -8,15 +10,21 @@ import javafx.stage.StageStyle;
 
 public class InfoBox {
 
+    private String[] competitors;
+    private Stage window;
+
     public void display(String title) {
-        Stage window = new Stage(StageStyle.DECORATED);
+        window = new Stage(StageStyle.DECORATED);
         window.setTitle(title);
+        competitors = new String[4];
 
         GridPane layout = new GridPane();
         for (int position = 0; position < 4; position++) {
             layout.getChildren().add(createInfoLabel(position));
             layout.getChildren().add(createInfoTextField(position));
         }
+        layout.getChildren().add(createSubmitButton(layout));
+
 
         // Make the layout stretch a bit to look more clear
         layout.setVgap(10);
@@ -47,5 +55,39 @@ public class InfoBox {
         return nameLabel;
     }
 
-    //Todo: Make a dropdown for each of competitors to set his/her color.
+    private Button createSubmitButton(GridPane layout) {
+        Button submit = new Button("Nhập");
+        submit.setOnAction(event -> getCompetitorsName(layout));
+        GridPane.setConstraints(submit, 1,4);
+        return submit;
+    }
+
+    private void getCompetitorsName(GridPane layout) {
+        int i = 0;
+        for (Node child: layout.getChildren()) {
+            if (child instanceof TextField) {
+                competitors[i] = ((TextField) child).getText();
+                i++;
+            } else if (i == 4) {
+                break;
+            }
+        }
+        window.close();
+    }
+
+    public String getCompetitor1() {
+        return competitors[0];
+    }
+
+    public String getCompetitor2() {
+        return competitors[1];
+    }
+
+    public String getCompetitor3() {
+        return competitors[2];
+    }
+
+    public String getCompetitor4() {
+        return competitors[3];
+    }
 }
