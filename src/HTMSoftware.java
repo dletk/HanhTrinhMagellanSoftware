@@ -25,7 +25,9 @@ public class HTMSoftware extends Application {
     public void start(Stage primaryStage) throws Exception {
         // Gather competitors information
         String[] competitors = getInfo();
-        QuestionInputBox getQuestion = new QuestionInputBox("Nhập dữ liệu câu hỏi");
+        //TODO: Deal with question bank
+        QuestionInputBox questionsInput = new QuestionInputBox("Nhập dữ liệu câu hỏi");
+        QuestionBank questionBank = new QuestionBank(questionsInput.getFile10(), questionsInput.getFile20(), questionsInput.getFile30());
 
         Stage window = primaryStage;
         window.setTitle("Chương trình Hành trình Magellan");

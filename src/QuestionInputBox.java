@@ -93,4 +93,16 @@ public class QuestionInputBox {
                 break;
         }
     }
+
+    public File getFile10() {
+        return file10;
+    }
+
+    public File getFile20() {
+        return file20;
+    }
+
+    public File getFile30() {
+        return file30;
+    }
 }
