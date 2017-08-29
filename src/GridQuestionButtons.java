@@ -4,6 +4,9 @@ import javafx.geometry.VPos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 public class GridQuestionButtons extends GridPane {
 
     private int numCols;
@@ -22,18 +25,34 @@ public class GridQuestionButtons extends GridPane {
     }
 
     private void createButtons() {
+        // Make a list to store all the buttons to shuffle later
+        ArrayList<QuestionButton> buttons = new ArrayList<>();
+        int questionValue = 10;
+        int count = 0;
+        // TODO: Make a random generator to assign value for button
+        // TODO: Having a coordinate system a-f and 1-6 for the buttons grid
+
         for (int row = 0; row < numRows; row++) {
             for (int col = 0; col < numCols; col++) {
-//                Button questionButton = new Button();
-//
-//                questionButton.setStyle("-fx-background-color: palegreen; -fx-border-width: 0.5; -fx-border-color: black");
-//                questionButton.setMinWidth(60);
-//                questionButton.setMinHeight(60);
-
-                QuestionButton questionButton = new QuestionButton(20);
-
-                GridPane.setConstraints(questionButton, col, row, 1, 1, HPos.CENTER, VPos.CENTER);
-                this.getChildren().add(questionButton);
+                // Condition for count depends on the number of each question value in the game
+                if (count == 14 || count == 26) {
+                    questionValue += 10;
+                }
+                QuestionButton questionButton = new QuestionButton(questionValue);
+//                GridPane.setConstraints(questionButton, col, row, 1, 1, HPos.CENTER, VPos.CENTER);
+//                this.add(questionButton, col, row);
+                buttons.add(questionButton);
+//                this.getChildren().add(questionButton);
+                count++;
+            }
+        }
+        // Shuffle the buttons list and add all buttons to the GridPane
+        Collections.shuffle(buttons);
+        int index = 0;
+        for (int row = 0; row < numRows; row++) {
+            for (int col = 0; col < numCols; col++) {
+                this.add(buttons.get(index), col, row);
+                index++;
             }
         }
     }

@@ -1,4 +1,5 @@
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.text.TextAlignment;
 
 import java.util.HashMap;
@@ -6,11 +7,14 @@ import java.util.HashMap;
 public class QuestionButton extends Button {
 
     private HashMap<Integer, String> notation = new HashMap<>();
+
     private final double WIDTH = 60;
     private final double HEIGHT = 60;
 
     private int questionValue;
     private boolean active;
+    private Label questionLabel;
+    private Label answerLabel;
 
     public QuestionButton(int questionValue) {
         super();
@@ -30,8 +34,7 @@ public class QuestionButton extends Button {
         this.setTextAlignment(TextAlignment.CENTER);
 
         notate();
-        // TODO: Make a random generator to assign value for button
-//        this.setOnAction(event -> color("RED"));
+        this.setOnAction(event -> color("RED"));
     }
 
     public boolean isActive() {

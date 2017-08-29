@@ -27,7 +27,7 @@ public class HTMSoftware extends Application {
         String[] competitors = getInfo();
 
         Stage window = primaryStage;
-        window.setTitle("Chương trình Huyền thoại Magellan");
+        window.setTitle("Chương trình Hành trình Magellan");
 
         // The main layout for the software
         BorderPane mainLayout = new BorderPane();
