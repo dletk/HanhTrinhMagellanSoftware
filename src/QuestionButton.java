@@ -30,7 +30,7 @@ public class QuestionButton extends Button {
         this.questionValue = questionValue;
 
         // Color the button based on the value of question
-        this.setStyle("-fx-border-width: 0.5; -fx-border-color: black; -fx-font-size: 24px");
+        this.setStyle("-fx-border-width: 0.5; -fx-border-color: black; -fx-font-size: 24px; -fx-text-fill: purple");
         this.setTextAlignment(TextAlignment.CENTER);
 
         notate();

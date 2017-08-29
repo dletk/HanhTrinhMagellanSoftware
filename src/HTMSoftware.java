@@ -35,8 +35,15 @@ public class HTMSoftware extends Application {
         mainLayout.setTop(makeTopLogo());
         mainLayout.setLeft(createCompetitorsInfo(competitors));
 
+        // Create the label for question and answer
+        Label questionLabel = new Label("Câu hỏi số 1, đây là 1 câu hỏi.....");
+        Label answerLabel = new Label("Đáp án: Something");
+        //Make a VBox for the right area of BorderPane
+        VBox questionArea = new VBox(20, questionLabel, answerLabel);
+        mainLayout.setRight(questionArea);
+
         // Create all buttons and add them to the grid, a 6x6 square
-        mainLayout.setCenter(makeGridButtons(6, 6));
+        mainLayout.setCenter(makeGridButtons(6, 6, questionLabel, answerLabel));
 
         // Setting the main scene
         Scene mainScene = new Scene(mainLayout, 1200, 600);
@@ -45,9 +52,9 @@ public class HTMSoftware extends Application {
         window.show();
     }
 
-    private GridQuestionButtons makeGridButtons(int numRows, int numCols) {
+    private GridQuestionButtons makeGridButtons(int numRows, int numCols, Label questionLabel, Label answerLabel) {
         // Create the grid of buttons
-        GridQuestionButtons grid = new GridQuestionButtons(6, 6);
+        GridQuestionButtons grid = new GridQuestionButtons(6, 6, questionLabel, answerLabel);
         BorderPane.setMargin(grid, new Insets(0, 20, 0, 20));
 
         return grid;

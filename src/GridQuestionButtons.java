@@ -1,9 +1,7 @@
-import javafx.geometry.HPos;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.geometry.VPos;
-import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -12,7 +10,7 @@ public class GridQuestionButtons extends GridPane {
     private int numCols;
     private int numRows;
 
-    public GridQuestionButtons(int col, int row) {
+    public GridQuestionButtons(int col, int row, Label questionLabel, Label answerLabel) {
         super();
         numCols = col;
         numRows = row;
@@ -21,6 +19,7 @@ public class GridQuestionButtons extends GridPane {
         this.setVgap(1);
 
         createButtons();
+        createCoordinateSystem();
 
     }
 
@@ -29,8 +28,6 @@ public class GridQuestionButtons extends GridPane {
         ArrayList<QuestionButton> buttons = new ArrayList<>();
         int questionValue = 10;
         int count = 0;
-        // TODO: Make a random generator to assign value for button
-        // TODO: Having a coordinate system a-f and 1-6 for the buttons grid
 
         for (int row = 0; row < numRows; row++) {
             for (int col = 0; col < numCols; col++) {
@@ -39,22 +36,35 @@ public class GridQuestionButtons extends GridPane {
                     questionValue += 10;
                 }
                 QuestionButton questionButton = new QuestionButton(questionValue);
-//                GridPane.setConstraints(questionButton, col, row, 1, 1, HPos.CENTER, VPos.CENTER);
-//                this.add(questionButton, col, row);
                 buttons.add(questionButton);
-//                this.getChildren().add(questionButton);
                 count++;
             }
         }
         // Shuffle the buttons list and add all buttons to the GridPane
         Collections.shuffle(buttons);
         int index = 0;
-        for (int row = 0; row < numRows; row++) {
-            for (int col = 0; col < numCols; col++) {
+        // Position start at 1 to leave the 0 col and row for the coordinate system label
+        for (int row = 1; row <= numRows; row++) {
+            for (int col = 1; col <= numCols; col++) {
                 this.add(buttons.get(index), col, row);
                 index++;
             }
         }
     }
 
+    private void createCoordinateSystem() {
+        String[] colLabel = {"A", "B", "C", "D", "E", "F"};
+        for (int index = 1; index <= numCols; index++) {
+            Label letter = new Label(colLabel[index-1]);
+            letter.setMinWidth(60);
+            letter.setAlignment(Pos.CENTER);
+            GridPane.setMargin(letter, new Insets(0, 0, 5, 0));
+            this.add(letter, index, 0);
+
+            Label num = new Label(Integer.toString(index));
+            num.setMinHeight(60);
+            GridPane.setMargin(num, new Insets(0, 5, 0, 0));
+            this.add(num, 0, index);
+        }
+    }
 }
