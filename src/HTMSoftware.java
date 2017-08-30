@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 public class HTMSoftware extends Application {
 
     private final String[] COLOR_BY_POSITION = {"RED", "YELLOW", "BLUE", "GREEN"};
+    protected static QuestionBank questionBank;
 
     public static void main(String[] args) {
         launch(args);
@@ -27,7 +28,7 @@ public class HTMSoftware extends Application {
         String[] competitors = getInfo();
         //TODO: Deal with question bank
         QuestionInputBox questionsInput = new QuestionInputBox("Nhập dữ liệu câu hỏi");
-        QuestionBank questionBank = new QuestionBank(questionsInput.getFile10(), questionsInput.getFile20(), questionsInput.getFile30());
+        questionBank = new QuestionBank(questionsInput.getFile10(), questionsInput.getFile20(), questionsInput.getFile30());
 
         Stage window = primaryStage;
         window.setTitle("Chương trình Hành trình Magellan");
@@ -39,8 +40,13 @@ public class HTMSoftware extends Application {
         mainLayout.setLeft(createCompetitorsInfo(competitors));
 
         // Create the label for question and answer
-        Label questionLabel = new Label("Câu hỏi số 1, đây là 1 câu hỏi.....");
+        Label questionLabel = new Label("Câu hỏi số 1, đây là 1 câu hỏi khó sml, đảm bảo không thí sinh nào .");
+        questionLabel.setMaxWidth(300);
+        questionLabel.setWrapText(true);
         Label answerLabel = new Label("Đáp án: Something");
+        answerLabel.setMaxWidth(300);
+        answerLabel.setWrapText(true);
+
         //Make a VBox for the right area of BorderPane
         VBox questionArea = new VBox(20, questionLabel, answerLabel);
         mainLayout.setRight(questionArea);

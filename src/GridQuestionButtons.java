@@ -18,12 +18,12 @@ public class GridQuestionButtons extends GridPane {
         this.setHgap(1);
         this.setVgap(1);
 
-        createButtons();
+        createButtons(questionLabel, answerLabel);
         createCoordinateSystem();
 
     }
 
-    private void createButtons() {
+    private void createButtons(Label questionLabel, Label answerLabel) {
         // Make a list to store all the buttons to shuffle later
         ArrayList<QuestionButton> buttons = new ArrayList<>();
         int questionValue = 10;
@@ -35,7 +35,7 @@ public class GridQuestionButtons extends GridPane {
                 if (count == 14 || count == 26) {
                     questionValue += 10;
                 }
-                QuestionButton questionButton = new QuestionButton(questionValue);
+                QuestionButton questionButton = new QuestionButton(questionValue, questionLabel, answerLabel);
                 buttons.add(questionButton);
                 count++;
             }

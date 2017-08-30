@@ -16,7 +16,7 @@ public class QuestionButton extends Button {
     private Label questionLabel;
     private Label answerLabel;
 
-    public QuestionButton(int questionValue) {
+    public QuestionButton(int questionValue, Label questionLabel, Label answerLabel) {
         super();
 
         notation.put(10, "");
@@ -26,7 +26,10 @@ public class QuestionButton extends Button {
         this.setPrefWidth(WIDTH);
         this.setPrefHeight(HEIGHT);
 
-        active = false;
+        this.questionLabel = questionLabel;
+        this.answerLabel = answerLabel;
+
+        active = true;
         this.questionValue = questionValue;
 
         // Color the button based on the value of question
@@ -34,7 +37,7 @@ public class QuestionButton extends Button {
         this.setTextAlignment(TextAlignment.CENTER);
 
         notate();
-        this.setOnAction(event -> color("RED"));
+        this.setOnAction(event -> displayQuestion());
     }
 
     public boolean isActive() {
@@ -52,5 +55,14 @@ public class QuestionButton extends Button {
     public void color(String color) {
         this.setStyle("-fx-border-width: 0.5; -fx-border-color: black; -fx-background-color: " + color);
         this.setText("");
+        active = false;
+    }
+
+    private void displayQuestion() {
+        if (active) {
+            String[] question_ans = HTMSoftware.questionBank.getQuestion(questionValue);
+            questionLabel.setText(question_ans[0]);
+            answerLabel.setText(question_ans[1]);
+        }
     }
 }
