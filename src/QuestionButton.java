@@ -13,10 +13,8 @@ public class QuestionButton extends Button {
 
     private int questionValue;
     private boolean active;
-    private Label questionLabel;
-    private Label answerLabel;
 
-    public QuestionButton(int questionValue, Label questionLabel, Label answerLabel) {
+    public QuestionButton(int questionValue) {
         super();
 
         notation.put(10, "");
@@ -26,8 +24,6 @@ public class QuestionButton extends Button {
         this.setPrefWidth(WIDTH);
         this.setPrefHeight(HEIGHT);
 
-        this.questionLabel = questionLabel;
-        this.answerLabel = answerLabel;
 
         active = true;
         this.questionValue = questionValue;
@@ -59,10 +55,12 @@ public class QuestionButton extends Button {
     }
 
     private void displayQuestion() {
+        HTMSoftware.recentButton = this;
         if (active) {
             String[] question_ans = HTMSoftware.questionBank.getQuestion(questionValue);
-            questionLabel.setText(question_ans[0]);
-            answerLabel.setText(question_ans[1]);
+            System.out.println(question_ans[0]);
+            HTMSoftware.questionLabel.setText(question_ans[0]);
+            HTMSoftware.answerLabel.setText("");
         }
     }
 }

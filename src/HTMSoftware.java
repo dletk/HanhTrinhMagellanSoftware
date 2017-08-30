@@ -11,12 +11,15 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 public class HTMSoftware extends Application {
 
     private final String[] COLOR_BY_POSITION = {"RED", "YELLOW", "BLUE", "GREEN"};
     protected static QuestionBank questionBank;
+    protected static QuestionButton recentButton;
+    protected static Label questionLabel, answerLabel;
 
     public static void main(String[] args) {
         launch(args);
@@ -26,7 +29,6 @@ public class HTMSoftware extends Application {
     public void start(Stage primaryStage) throws Exception {
         // Gather competitors information
         String[] competitors = getInfo();
-        //TODO: Deal with question bank
         QuestionInputBox questionsInput = new QuestionInputBox("Nhập dữ liệu câu hỏi");
         questionBank = new QuestionBank(questionsInput.getFile10(), questionsInput.getFile20(), questionsInput.getFile30());
 
@@ -39,31 +41,35 @@ public class HTMSoftware extends Application {
         mainLayout.setTop(makeTopLogo());
         mainLayout.setLeft(createCompetitorsInfo(competitors));
 
-        // Create the label for question and answer
-        Label questionLabel = new Label("Câu hỏi số 1, đây là 1 câu hỏi khó sml, đảm bảo không thí sinh nào .");
-        questionLabel.setMaxWidth(300);
-        questionLabel.setWrapText(true);
-        Label answerLabel = new Label("Đáp án: Something");
-        answerLabel.setMaxWidth(300);
-        answerLabel.setWrapText(true);
+        createQuestionAndAnswerLabels();
+        // Make the label to note the area of question and answer
+        Label questionLogo = new Label("Câu hỏi");
+        questionLogo.setFont(Font.font("Times New Roman", FontWeight.BOLD, 32));
+        Button answerButton = new Button(" Đáp án");
+        answerButton.setFont(Font.font("Times New Roman", 20));
+
+        answerButton.setOnAction(event -> {
+            answerLabel.setText(questionBank.getCurrentAnswer());
+        });
 
         //Make a VBox for the right area of BorderPane
-        VBox questionArea = new VBox(20, questionLabel, answerLabel);
+        VBox questionArea = new VBox(20, questionLogo, questionLabel, answerButton, answerLabel);
+        BorderPane.setMargin(questionArea, new Insets(0, 20, 0 ,0));
         mainLayout.setRight(questionArea);
 
         // Create all buttons and add them to the grid, a 6x6 square
-        mainLayout.setCenter(makeGridButtons(6, 6, questionLabel, answerLabel));
+        mainLayout.setCenter(makeGridButtons(6, 6));
 
         // Setting the main scene
-        Scene mainScene = new Scene(mainLayout, 1200, 600);
+        Scene mainScene = new Scene(mainLayout, 1300, 800);
 
         window.setScene(mainScene);
         window.show();
     }
 
-    private GridQuestionButtons makeGridButtons(int numRows, int numCols, Label questionLabel, Label answerLabel) {
+    private GridQuestionButtons makeGridButtons(int numRows, int numCols) {
         // Create the grid of buttons
-        GridQuestionButtons grid = new GridQuestionButtons(6, 6, questionLabel, answerLabel);
+        GridQuestionButtons grid = new GridQuestionButtons(6, 6);
         BorderPane.setMargin(grid, new Insets(0, 20, 0, 20));
 
         return grid;
@@ -113,6 +119,13 @@ public class HTMSoftware extends Application {
         colorButton.setStyle("-fx-background-color: "+color);
         colorButton.setPrefWidth(30);
         colorButton.setPrefHeight(30);
+
+        colorButton.setOnAction(event -> {
+            if (recentButton != null) {
+                recentButton.color(color);
+            }
+        });
+
         lineOfInfo.getChildren().add(colorButton);
 
         return lineOfInfo;
@@ -122,5 +135,20 @@ public class HTMSoftware extends Application {
         InfoBox infoBox = new InfoBox();
         infoBox.display("Nhập dữ liệu thí sinh");
         return infoBox.getCompetitors();
+    }
+
+    private void createQuestionAndAnswerLabels() {
+        // Create the label for question and answer
+        // TODO: Long question will not fit always fit into the label area
+        questionLabel = new Label("Hãy sẵn sàng!");
+        questionLabel.setMaxWidth(500);
+        questionLabel.setWrapText(true);
+        questionLabel.setFont(Font.font("Times New Roman", 32));
+        questionLabel.setTextAlignment(TextAlignment.JUSTIFY);
+
+        answerLabel = new Label("Chúc các thí sinh may mắn");
+        answerLabel.setMaxWidth(500);
+        answerLabel.setWrapText(true);
+        answerLabel.setFont(Font.font("Times New Roman", 32));
     }
 }
