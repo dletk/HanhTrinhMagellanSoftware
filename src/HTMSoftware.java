@@ -151,4 +151,8 @@ public class HTMSoftware extends Application {
         answerLabel.setWrapText(true);
         answerLabel.setFont(Font.font("Times New Roman", 32));
     }
+
+    private void createStarArea() {
+
+    }
 }
