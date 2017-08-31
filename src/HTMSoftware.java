@@ -141,13 +141,13 @@ public class HTMSoftware extends Application {
         // Create the label for question and answer
         // TODO: Long question will not fit always fit into the label area
         questionLabel = new Label("Hãy sẵn sàng!");
-        questionLabel.setMaxWidth(500);
+        questionLabel.setMaxWidth(600);
         questionLabel.setWrapText(true);
         questionLabel.setFont(Font.font("Times New Roman", 32));
         questionLabel.setTextAlignment(TextAlignment.JUSTIFY);
 
         answerLabel = new Label("Chúc các thí sinh may mắn");
-        answerLabel.setMaxWidth(500);
+        answerLabel.setMaxWidth(600);
         answerLabel.setWrapText(true);
         answerLabel.setFont(Font.font("Times New Roman", 32));
     }

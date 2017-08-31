@@ -58,7 +58,6 @@ public class QuestionButton extends Button {
         HTMSoftware.recentButton = this;
         if (active) {
             String[] question_ans = HTMSoftware.questionBank.getQuestion(questionValue);
-            System.out.println(question_ans[0]);
             HTMSoftware.questionLabel.setText(question_ans[0]);
             HTMSoftware.answerLabel.setText("");
         }

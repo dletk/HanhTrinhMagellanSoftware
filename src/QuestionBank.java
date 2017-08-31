@@ -28,10 +28,15 @@ public class QuestionBank {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(fileQuestion));
             String line;
+            // Using .txt file instead of csv file. The format of the file is: question(New line)answer
+            // So, to get the question and answer from the file,
             while ((line = reader.readLine()) != null) {
-                // Using | as delimiter because question may contain ","
-                String[] questionAndAns = line.split("\\|");
-                data.put(questionAndAns[0], questionAndAns[1]);
+                // Using | as delimiter because file csv may contain ","
+//                String[] questionAndAns = line.split("\\|");
+//                data.put(questionAndAns[0], questionAndAns[1]);
+                String question = line;
+                String answer = reader.readLine();
+                data.put(question, answer);
             }
         } catch (IOException e) {
             e.printStackTrace();
