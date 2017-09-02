@@ -4,6 +4,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -39,7 +40,7 @@ public class HTMSoftware extends Application {
         BorderPane mainLayout = new BorderPane();
 
         mainLayout.setTop(makeTopLogo());
-        mainLayout.setLeft(createCompetitorsInfo(competitors));
+        mainLayout.setLeft(createLeftAreas(competitors));
 
         createQuestionAndAnswerLabels();
         // Make the label to note the area of question and answer
@@ -87,20 +88,22 @@ public class HTMSoftware extends Application {
         return logo;
     }
 
-    private VBox createCompetitorsInfo(String[] competitors) {
-        VBox leftNamesTable = new VBox(50);
+    private VBox createLeftAreas(String[] competitors) {
+        VBox leftArea = new VBox(50);
+        // Style the table name so it appears clear and easy to read
+        leftArea.setPadding(new Insets(0, 0, 0, 20));
+
         int pos = 0;
         for (String competitor: competitors) {
             HBox lineInfo = createIndivdualInfo(pos, competitor);
-            leftNamesTable.getChildren().add(lineInfo);
+            leftArea.getChildren().add(lineInfo);
             pos++;
         }
+        createStarArea(leftArea);
 
-        // Style the table name so it appears clear and easy to read
-        leftNamesTable.setMinWidth(200);
-        leftNamesTable.setPadding(new Insets(0, 0, 0, 20));
+//        leftNamesTable.setMinWidth(200);
 
-        return leftNamesTable;
+        return leftArea;
     }
 
     private HBox createIndivdualInfo(int position, String name) {
@@ -152,7 +155,13 @@ public class HTMSoftware extends Application {
         answerLabel.setFont(Font.font("Times New Roman", 32));
     }
 
-    private void createStarArea() {
-
+    private void createStarArea(VBox layout) {
+        // TODO: Find out the right url for the image
+        ImageView starImage = new ImageView("../img/ngoisao.png");
+        Button toggleStarButton = new Button("Ngôi sao hi vọng");
+        toggleStarButton.setOnAction(event -> {
+            starImage.setVisible(!starImage.isVisible());
+        });
+        layout.getChildren().addAll(starImage, toggleStarButton);
     }
 }
