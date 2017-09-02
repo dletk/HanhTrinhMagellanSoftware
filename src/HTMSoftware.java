@@ -61,7 +61,7 @@ public class HTMSoftware extends Application {
         mainLayout.setCenter(makeGridButtons(6, 6));
 
         // Setting the main scene
-        Scene mainScene = new Scene(mainLayout, 1300, 800);
+        Scene mainScene = new Scene(mainLayout, 1500, 800);
 
         window.setScene(mainScene);
         window.show();

@@ -31,6 +31,12 @@ public class QuestionInputBox {
         button20 = createSelectFileButton(mainLayout, "20", 1, 2);
         button30 = createSelectFileButton(mainLayout, "30", 1, 3);
 
+        Button finishButton = new Button("Hoàn tất");
+        mainLayout.add(finishButton, 3, 4);
+        finishButton.setOnAction(event -> {
+            window.close();
+        });
+
         path10 = new Label();
         path10.setMaxWidth(300);
         mainLayout.add(path10, 2, 1);
