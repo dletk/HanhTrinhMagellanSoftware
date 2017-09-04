@@ -99,7 +99,7 @@ public class HTMSoftware extends Application {
             leftArea.getChildren().add(lineInfo);
             pos++;
         }
-        createStarArea(leftArea);
+//        createStarArea(leftArea);
 
 //        leftNamesTable.setMinWidth(200);
 

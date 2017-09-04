@@ -26,7 +26,7 @@ public class QuestionBank {
     private HashMap<String, String> extractData(File fileQuestion) {
         HashMap<String, String> data = new HashMap<>();
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(fileQuestion));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(fileQuestion), "UTF8"));
             String line;
             // Using .txt file instead of csv file. The format of the file is: question(New line)answer
             // So, to get the question and answer from the file,
