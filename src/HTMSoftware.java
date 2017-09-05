@@ -5,10 +5,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
@@ -18,6 +17,9 @@ import javafx.stage.Stage;
 public class HTMSoftware extends Application {
 
     private final String[] COLOR_BY_POSITION = {"RED", "YELLOW", "BLUE", "GREEN"};
+    private final int WIDTH_OF_QUESTION = 450;
+    private final int SCREEN_WIDTH = 1500;
+    private final int SCREEN_HEIGHT = 800;
     protected static QuestionBank questionBank;
     protected static QuestionButton recentButton;
     protected static Label questionLabel, answerLabel;
@@ -39,7 +41,9 @@ public class HTMSoftware extends Application {
         // The main layout for the software
         BorderPane mainLayout = new BorderPane();
 
+        // Top area
         mainLayout.setTop(makeTopLogo());
+        // Left area
         mainLayout.setLeft(createLeftAreas(competitors));
 
         createQuestionAndAnswerLabels();
@@ -56,13 +60,14 @@ public class HTMSoftware extends Application {
         //Make a VBox for the right area of BorderPane
         VBox questionArea = new VBox(20, questionLogo, questionLabel, answerButton, answerLabel);
         BorderPane.setMargin(questionArea, new Insets(0, 20, 0 ,0));
+//        questionArea.setStyle("-fx-background-color: #ADC5D5");
         mainLayout.setRight(questionArea);
 
         // Create all buttons and add them to the grid, a 6x6 square
         mainLayout.setCenter(makeGridButtons(6, 6));
 
         // Setting the main scene
-        Scene mainScene = new Scene(mainLayout, 1500, 800);
+        Scene mainScene = new Scene(mainLayout, SCREEN_WIDTH, SCREEN_HEIGHT);
 
         window.setScene(mainScene);
         window.show();
@@ -78,8 +83,9 @@ public class HTMSoftware extends Application {
 
     private Label makeTopLogo() {
         Label logo = new Label("Phần thi Chinh phục");
-        logo.setFont(Font.font("Times New Roman", FontWeight.EXTRA_BOLD, FontPosture.ITALIC, 100));
-        logo.setTextFill(Color.valueOf("BLUE"));
+        logo.setFont(Font.font("Times New Roman", FontWeight.EXTRA_BOLD, FontPosture.ITALIC, 80));
+//        logo.setStyle("-fx-background-color: #69D7E9");
+        logo.setTextFill(Color.valueOf("#2478B1"));
 
         // The position of logo
         BorderPane.setAlignment(logo, Pos.CENTER);
@@ -99,7 +105,7 @@ public class HTMSoftware extends Application {
             leftArea.getChildren().add(lineInfo);
             pos++;
         }
-//        createStarArea(leftArea);
+        leftArea.getChildren().add(createStarArea());
 
 //        leftNamesTable.setMinWidth(200);
 
@@ -143,25 +149,35 @@ public class HTMSoftware extends Application {
     private void createQuestionAndAnswerLabels() {
         // Create the label for question and answer
         // TODO: Long question will not fit always fit into the label area
+        int size_of_font = 28;
         questionLabel = new Label("Hãy sẵn sàng!");
-        questionLabel.setMaxWidth(600);
+        questionLabel.setMaxWidth(WIDTH_OF_QUESTION);
         questionLabel.setWrapText(true);
-        questionLabel.setFont(Font.font("Times New Roman", 32));
+        questionLabel.setFont(Font.font("Times New Roman", size_of_font));
         questionLabel.setTextAlignment(TextAlignment.JUSTIFY);
 
         answerLabel = new Label("Chúc các thí sinh may mắn");
-        answerLabel.setMaxWidth(600);
+        answerLabel.setMaxWidth(WIDTH_OF_QUESTION);
         answerLabel.setWrapText(true);
-        answerLabel.setFont(Font.font("Times New Roman", 32));
+        answerLabel.setFont(Font.font("Times New Roman", size_of_font));
     }
 
-    private void createStarArea(VBox layout) {
-        // TODO: Find out the right url for the image
-        ImageView starImage = new ImageView("../img/ngoisao.png");
+    private VBox createStarArea() {
+        VBox starArea = new VBox(10);
+        ImageView starImage = new ImageView("./img/ngoisao.png");
+        starArea.setAlignment(Pos.CENTER);
+        // Set the width of the Star image and preserve the ratio
+        starImage.setFitWidth(200);
+        starImage.setPreserveRatio(true);
+        // Disable the star at the beginning
+        starImage.setVisible(false);
+
         Button toggleStarButton = new Button("Ngôi sao hi vọng");
         toggleStarButton.setOnAction(event -> {
             starImage.setVisible(!starImage.isVisible());
         });
-        layout.getChildren().addAll(starImage, toggleStarButton);
+        starArea.getChildren().addAll(starImage, toggleStarButton);
+
+        return starArea;
     }
 }

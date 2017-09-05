@@ -2,6 +2,9 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -56,13 +59,15 @@ public class GridQuestionButtons extends GridPane {
         String[] colLabel = {"A", "B", "C", "D", "E", "F"};
         for (int index = 1; index <= numCols; index++) {
             Label letter = new Label(colLabel[index-1]);
-            letter.setMinWidth(60);
+            letter.setMinWidth(QuestionButton.HEIGHT);
             letter.setAlignment(Pos.CENTER);
+            letter.setFont(Font.font("Times New Roman", FontWeight.BOLD, 30));
             GridPane.setMargin(letter, new Insets(0, 0, 5, 0));
             this.add(letter, index, 0);
 
             Label num = new Label(Integer.toString(index));
-            num.setMinHeight(60);
+            num.setFont(Font.font("Times New Roman", FontWeight.BOLD, 30));
+            num.setMinHeight(QuestionButton.HEIGHT);
             GridPane.setMargin(num, new Insets(0, 5, 0, 0));
             this.add(num, 0, index);
         }

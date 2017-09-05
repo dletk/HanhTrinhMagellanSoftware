@@ -8,8 +8,8 @@ public class QuestionButton extends Button {
 
     private HashMap<Integer, String> notation = new HashMap<>();
 
-    private final double WIDTH = 60;
-    private final double HEIGHT = 60;
+    protected static final double WIDTH = 90;
+    protected static final double HEIGHT = 90;
 
     private int questionValue;
     private boolean active;
