@@ -4,6 +4,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -163,7 +164,8 @@ public class HTMSoftware extends Application {
 
     private VBox createStarArea() {
         VBox starArea = new VBox(10);
-        ImageView starImage = new ImageView("./img/ngoisao.png");
+        // REMEMBER: Using .class.getResourceAsStream to make the resource to be packed with the program when export
+        ImageView starImage = new ImageView(new Image(HTMSoftware.class.getResourceAsStream("img/ngoisao.png")));
         starArea.setAlignment(Pos.CENTER);
         // Set the width of the Star image and preserve the ratio
         starImage.setFitWidth(200);

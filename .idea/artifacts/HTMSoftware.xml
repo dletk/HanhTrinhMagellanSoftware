@@ -14,7 +14,6 @@
             <option name="windowsIcon" value="$PROJECT_DIR$/img/htmIcon.jpg" />
           </JavaFxApplicationIcons>
         </option>
-        <option name="nativeBundle" value="exe" />
         <option name="title" value="" />
         <option name="vendor" value="" />
         <option name="version" value="1.0.0" />
