@@ -7,7 +7,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
@@ -16,7 +15,7 @@ import javafx.stage.Stage;
 
 public class HTMSoftware extends Application {
 
-    private final String[] COLOR_BY_POSITION = {"RED", "YELLOW", "BLUE", "GREEN"};
+    private final String[] COLOR_BY_POSITION = {"RED", "ORANGE", "BLUE", "GREEN"};
     private final int WIDTH_OF_QUESTION = 450;
     private final int SCREEN_WIDTH = 1500;
     private final int SCREEN_HEIGHT = 800;
