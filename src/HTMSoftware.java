@@ -7,12 +7,15 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+
+import javax.swing.text.html.HTML;
 
 public class HTMSoftware extends Application {
 
@@ -164,8 +167,8 @@ public class HTMSoftware extends Application {
 
     private VBox createStarArea() {
         VBox starArea = new VBox(10);
-        // REMEMBER: Using .class.getResourceAsStream to make the resource to be packed with the program when export
-        ImageView starImage = new ImageView(new Image(HTMSoftware.class.getResourceAsStream("img/ngoisao.png")));
+        // REMEMBER: Using .getClass().getResource().toString() to make the resource to be packed with the program when export
+        ImageView starImage = new ImageView(new Image(this.getClass().getResource("img/ngoisao.png").toString()));
         starArea.setAlignment(Pos.CENTER);
         // Set the width of the Star image and preserve the ratio
         starImage.setFitWidth(200);
@@ -173,9 +176,15 @@ public class HTMSoftware extends Application {
         // Disable the star at the beginning
         starImage.setVisible(false);
 
+        // Create the sound to play when the star is displayed (selected)
+        AudioClip starSound = new AudioClip(this.getClass().getResource("sound/starSelectedSound.mp3").toString());
+
         Button toggleStarButton = new Button("Ngôi sao hi vọng");
         toggleStarButton.setOnAction(event -> {
             starImage.setVisible(!starImage.isVisible());
+            if (starImage.isVisible()) {
+                starSound.play();
+            }
         });
         starArea.getChildren().addAll(starImage, toggleStarButton);
 

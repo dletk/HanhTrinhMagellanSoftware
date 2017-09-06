@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="HTMSoftware.jar" size="387461" download="eager" />
+    <jar href="HTMSoftware.jar" size="432611" download="eager" />
   </resources>
   <jfx:javafx-desc  width="1500" height="800" main-class="HTMSoftware"  name="HTMSoftware" />
   <update check="background"/>
