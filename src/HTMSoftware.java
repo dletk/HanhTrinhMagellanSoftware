@@ -15,13 +15,11 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
-import javax.swing.text.html.HTML;
-
 public class HTMSoftware extends Application {
 
     private final String[] COLOR_BY_POSITION = {"RED", "ORANGE", "BLUE", "GREEN"};
-    private final int WIDTH_OF_QUESTION = 450;
-    private final int SCREEN_WIDTH = 1500;
+    private final int WIDTH_OF_QUESTION = 400;
+    private final int SCREEN_WIDTH = 1366;
     private final int SCREEN_HEIGHT = 800;
     protected static QuestionBank questionBank;
     protected static QuestionButton recentButton;
@@ -122,7 +120,7 @@ public class HTMSoftware extends Application {
         // Name label
         Label nameLabel = new Label(name.toUpperCase());
         nameLabel.setFont(Font.font("Times New Roman", 30));
-        nameLabel.setMinWidth(300);
+        nameLabel.setMinWidth(280);
         nameLabel.setTextFill(Color.web(COLOR_BY_POSITION[position]));
         lineOfInfo.getChildren().add(nameLabel);
 
