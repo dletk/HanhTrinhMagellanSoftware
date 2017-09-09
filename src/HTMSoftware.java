@@ -100,9 +100,12 @@ public class HTMSoftware extends Application {
         // Style the table name so it appears clear and easy to read
         leftArea.setPadding(new Insets(0, 0, 0, 20));
 
+        // Audio for color button when the answer is correct
+        AudioClip colorSound = new AudioClip(this.getClass().getResource("sound/colorSound.mp3").toString());
+
         int pos = 0;
         for (String competitor: competitors) {
-            HBox lineInfo = createIndivdualInfo(pos, competitor);
+            HBox lineInfo = createIndivdualInfo(pos, competitor, colorSound);
             leftArea.getChildren().add(lineInfo);
             pos++;
         }
@@ -113,7 +116,7 @@ public class HTMSoftware extends Application {
         return leftArea;
     }
 
-    private HBox createIndivdualInfo(int position, String name) {
+    private HBox createIndivdualInfo(int position, String name, AudioClip colorSound) {
         String color = COLOR_BY_POSITION[position];
         HBox lineOfInfo = new HBox(20);
 
@@ -133,6 +136,7 @@ public class HTMSoftware extends Application {
         colorButton.setOnAction(event -> {
             if (recentButton != null) {
                 recentButton.color(color);
+                colorSound.play();
             }
         });
 
@@ -175,7 +179,7 @@ public class HTMSoftware extends Application {
         starImage.setVisible(false);
 
         // Create the sound to play when the star is displayed (selected)
-        AudioClip starSound = new AudioClip(this.getClass().getResource("sound/starSelectedSound.mp3").toString());
+        AudioClip starSound = new AudioClip(this.getClass().getResource("sound/ngoi_sao.mp3").toString());
 
         Button toggleStarButton = new Button("Ngôi sao hi vọng");
         toggleStarButton.setOnAction(event -> {
@@ -188,4 +192,6 @@ public class HTMSoftware extends Application {
 
         return starArea;
     }
+
+
 }
