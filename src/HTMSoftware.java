@@ -25,6 +25,9 @@ public class HTMSoftware extends Application {
     protected static QuestionButton recentButton;
     protected static Label questionLabel, answerLabel;
 
+    private int amountOfTimeLeft = 15;
+    private final int TIME_FOR_QUESTION = 15;
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -38,12 +41,13 @@ public class HTMSoftware extends Application {
 
         Stage window = primaryStage;
         window.setTitle("Chương trình Hành trình Magellan");
+        window.getIcons().add(new Image(this.getClass().getResource("img/htmIcon.jpg").toString()));
 
         // The main layout for the software
         BorderPane mainLayout = new BorderPane();
 
         // Top area
-        mainLayout.setTop(makeTopLogo());
+        mainLayout.setTop(makeTopArea());
         // Left area
         mainLayout.setLeft(createLeftAreas(competitors));
 
@@ -82,7 +86,9 @@ public class HTMSoftware extends Application {
         return grid;
     }
 
-    private Label makeTopLogo() {
+    private HBox makeTopArea() {
+        HBox topArea = new HBox(10);
+        // The logo
         Label logo = new Label("Phần thi Chinh phục");
         logo.setFont(Font.font("Times New Roman", FontWeight.EXTRA_BOLD, FontPosture.ITALIC, 80));
 //        logo.setStyle("-fx-background-color: #69D7E9");
@@ -92,7 +98,12 @@ public class HTMSoftware extends Application {
         BorderPane.setAlignment(logo, Pos.CENTER);
         BorderPane.setMargin(logo, new Insets(10));
 
-        return logo;
+        // The timing button
+        Button timingButton = createTimingButton();
+
+        topArea.getChildren().addAll(logo, timingButton);
+
+        return topArea;
     }
 
     private VBox createLeftAreas(String[] competitors) {
@@ -193,5 +204,34 @@ public class HTMSoftware extends Application {
         return starArea;
     }
 
+    /**
+     * This method creates a timing button for each question.
+     * The text on the button indicates how much time is left for each question
+     * After count down to 0, the text is reset and ready for new countdown
+     *
+     * @return the timing button to add to a layout
+     */
+    private Button createTimingButton() {
+        Button timingButton = new Button(String.valueOf(amountOfTimeLeft));
 
+        // The sound for time
+        AudioClip timingSound = new AudioClip(this.getClass().getResource("sound/timingSound.mp3").toString());
+
+        timingButton.setOnAction(event -> {
+            timingSound.play();
+            while (amountOfTimeLeft > 0) {
+                amountOfTimeLeft--;
+                timingButton.setText(String.valueOf(amountOfTimeLeft));
+                // TODO: Find out about thread sleep with UI javafx
+                try {
+                    wait(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            amountOfTimeLeft = TIME_FOR_QUESTION;
+        });
+
+        return timingButton;
+    }
 }
