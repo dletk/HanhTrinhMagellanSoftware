@@ -1,4 +1,5 @@
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -45,6 +46,7 @@ public class HTMSoftware extends Application {
 
         // The main layout for the software
         BorderPane mainLayout = new BorderPane();
+        mainLayout.setStyle("-fx-background-color: #6BF7FF");
 
         // Top area
         mainLayout.setTop(makeTopArea());
@@ -96,12 +98,14 @@ public class HTMSoftware extends Application {
 
         // The position of logo
         BorderPane.setAlignment(logo, Pos.CENTER);
-        BorderPane.setMargin(logo, new Insets(10));
+        HBox.setMargin(logo, new Insets(10));
 
         // The timing button
         Button timingButton = createTimingButton();
+        HBox.setMargin(timingButton, new Insets(0, 20, 0, 50));
 
         topArea.getChildren().addAll(logo, timingButton);
+        BorderPane.setAlignment(topArea, Pos.CENTER);
 
         return topArea;
     }
@@ -218,18 +222,25 @@ public class HTMSoftware extends Application {
         AudioClip timingSound = new AudioClip(this.getClass().getResource("sound/timingSound.mp3").toString());
 
         timingButton.setOnAction(event -> {
-            timingSound.play();
-            while (amountOfTimeLeft > 0) {
-                amountOfTimeLeft--;
-                timingButton.setText(String.valueOf(amountOfTimeLeft));
-                // TODO: Find out about thread sleep with UI javafx
-                try {
-                    wait(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+            // Create a new thread to handle the countdown without interfere the GUI thread
+            // Using lambda. The right format is new Thread (new Runnable...)
+            new Thread(() -> {
+                timingSound.play();
+                while (amountOfTimeLeft > 0) {
+                    amountOfTimeLeft--;
+                    // Because the current thread cannot work with the GUI, Playform.runLater will put the request from
+                    // this thread to a queue for execution in the GUI thread.
+                    Platform.runLater(() -> timingButton.setText(String.valueOf(amountOfTimeLeft)));
+                    try {
+                        // Countdown 1 second
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
+                amountOfTimeLeft = TIME_FOR_QUESTION;
             }
-            amountOfTimeLeft = TIME_FOR_QUESTION;
+            ).start();
         });
 
         return timingButton;
