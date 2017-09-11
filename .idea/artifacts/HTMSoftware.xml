@@ -9,14 +9,14 @@
         <option name="htmlPlaceholderId" value="" />
         <option name="icons">
           <JavaFxApplicationIcons>
-            <option name="linuxIcon" value="$PROJECT_DIR$/img/htmIcon.jpg" />
-            <option name="macIcon" value="$PROJECT_DIR$/img/htmIcon.jpg" />
-            <option name="windowsIcon" value="$PROJECT_DIR$/img/htmIcon.jpg" />
+            <option name="linuxIcon" value="$PROJECT_DIR$/src/img/htmicon.ico" />
+            <option name="macIcon" value="$PROJECT_DIR$/src/img/htmicon.ico" />
+            <option name="windowsIcon" value="$PROJECT_DIR$/src/img/htmicon.ico" />
           </JavaFxApplicationIcons>
         </option>
         <option name="title" value="" />
         <option name="vendor" value="" />
-        <option name="version" value="1.0.0" />
+        <option name="version" value="1.1.0" />
         <option name="width" value="1500" />
       </options>
     </properties>
