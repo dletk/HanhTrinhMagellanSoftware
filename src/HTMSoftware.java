@@ -52,23 +52,8 @@ public class HTMSoftware extends Application {
         mainLayout.setTop(makeTopArea());
         // Left area
         mainLayout.setLeft(createLeftAreas(competitors));
-
-        createQuestionAndAnswerLabels();
-        // Make the label to note the area of question and answer
-        Label questionLogo = new Label("Câu hỏi");
-        questionLogo.setFont(Font.font("Times New Roman", FontWeight.BOLD, 32));
-        Button answerButton = new Button(" Đáp án");
-        answerButton.setFont(Font.font("Times New Roman", 20));
-
-        answerButton.setOnAction(event -> {
-            answerLabel.setText(questionBank.getCurrentAnswer());
-        });
-
-        //Make a VBox for the right area of BorderPane
-        VBox questionArea = new VBox(20, questionLogo, questionLabel, answerButton, answerLabel);
-        BorderPane.setMargin(questionArea, new Insets(0, 20, 0 ,0));
-//        questionArea.setStyle("-fx-background-color: #ADC5D5");
-        mainLayout.setRight(questionArea);
+        // Right area
+        mainLayout.setRight(createRightArea());
 
         // Create all buttons and add them to the grid, a 6x6 square
         mainLayout.setCenter(makeGridButtons(6, 6));
@@ -93,16 +78,14 @@ public class HTMSoftware extends Application {
         // The logo
         Label logo = new Label("Phần thi Chinh phục");
         logo.setFont(Font.font("Times New Roman", FontWeight.EXTRA_BOLD, FontPosture.ITALIC, 80));
-//        logo.setStyle("-fx-background-color: #69D7E9");
         logo.setTextFill(Color.valueOf("#2478B1"));
 
-        // The position of logo
-        BorderPane.setAlignment(logo, Pos.CENTER);
-        HBox.setMargin(logo, new Insets(10));
+        logo.setMinWidth(SCREEN_WIDTH - 170);
+        logo.setAlignment(Pos.CENTER);
+        HBox.setMargin(logo, new Insets(10, 10, 10, 50));
 
         // The timing button
         Button timingButton = createTimingButton();
-        HBox.setMargin(timingButton, new Insets(0, 20, 0, 50));
 
         topArea.getChildren().addAll(logo, timingButton);
         BorderPane.setAlignment(topArea, Pos.CENTER);
@@ -125,8 +108,6 @@ public class HTMSoftware extends Application {
             pos++;
         }
         leftArea.getChildren().add(createStarArea());
-
-//        leftNamesTable.setMinWidth(200);
 
         return leftArea;
     }
@@ -158,6 +139,28 @@ public class HTMSoftware extends Application {
         lineOfInfo.getChildren().add(colorButton);
 
         return lineOfInfo;
+    }
+
+    private VBox createRightArea() {
+        createQuestionAndAnswerLabels();
+        // Make the label to note the area of question and answer
+        Label questionLogo = new Label("Câu hỏi");
+        questionLogo.setFont(Font.font("Times New Roman", FontWeight.BOLD, 32));
+        Button answerButton = new Button(" Đáp án");
+        answerButton.setFont(Font.font("Times New Roman", 20));
+
+        // Sound for displaying answer
+        AudioClip answerSound = new AudioClip(this.getClass().getResource("sound/dapan.mp3").toString());
+        answerButton.setOnAction(event -> {
+            answerSound.play();
+            answerLabel.setText(questionBank.getCurrentAnswer());
+        });
+
+        //Make a VBox for the right area of BorderPane
+        VBox questionArea = new VBox(20, questionLogo, questionLabel, answerButton, answerLabel);
+        BorderPane.setMargin(questionArea, new Insets(0, 20, 0 ,0));
+
+        return questionArea;
     }
 
     private String[] getInfo() {
@@ -218,6 +221,12 @@ public class HTMSoftware extends Application {
     private Button createTimingButton() {
         Button timingButton = new Button(String.valueOf(amountOfTimeLeft));
 
+        // Make the button bigger for audience to see the countdown
+        timingButton.setMinWidth(90);
+        timingButton.setMinHeight(90);
+        timingButton.setFont(Font.font(60));
+        timingButton.setPadding(new Insets(5));
+
         // The sound for time
         AudioClip timingSound = new AudioClip(this.getClass().getResource("sound/timingSound.mp3").toString());
 
@@ -230,7 +239,7 @@ public class HTMSoftware extends Application {
                     amountOfTimeLeft--;
                     // Because the current thread cannot work with the GUI, Playform.runLater will put the request from
                     // this thread to a queue for execution in the GUI thread.
-                    Platform.runLater(() -> timingButton.setText(String.valueOf(amountOfTimeLeft)));
+                    Platform.runLater(() -> timingButton.setText(String.format("%02d", amountOfTimeLeft)));
                     try {
                         // Countdown 1 second
                         Thread.sleep(1000);
@@ -239,6 +248,11 @@ public class HTMSoftware extends Application {
                     }
                 }
                 amountOfTimeLeft = TIME_FOR_QUESTION;
+                while (timingSound.isPlaying()) {
+                    // Wait for timing sound to stop
+                }
+                // Set the timing back to original value for next question
+                Platform.runLater(() -> timingButton.setText(Integer.toString(amountOfTimeLeft)));
             }
             ).start();
         });
