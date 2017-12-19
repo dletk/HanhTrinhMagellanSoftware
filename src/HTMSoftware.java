@@ -18,16 +18,21 @@ import javafx.stage.Stage;
 
 public class HTMSoftware extends Application {
 
+    // Constants for the setting and appearance of the program.
     private final String[] COLOR_BY_POSITION = {"RED", "ORANGE", "BLUE", "GREEN"};
     private final int WIDTH_OF_QUESTION = 400;
     private final int SCREEN_WIDTH = 1366;
     private final int SCREEN_HEIGHT = 800;
+    // The questionBank model, managing questions and answer.
     protected static QuestionBank questionBank;
+    // The most recent selected button, this is used to keep track on the button to color
     protected static QuestionButton recentButton;
+    // These labels are passed to the button grid to display the question and answer for that question
     protected static Label questionLabel, answerLabel;
 
-    private int amountOfTimeLeft = 15;
     private final int TIME_FOR_QUESTION = 15;
+    // Indicating the amount of time left for the timer of each question
+    private int amountOfTimeLeft = 15;
 
     public static void main(String[] args) {
         launch(args);
@@ -37,6 +42,7 @@ public class HTMSoftware extends Application {
     public void start(Stage primaryStage) throws Exception {
         // Gather competitors information
         String[] competitors = getInfo();
+        // Get the input for questions
         QuestionInputBox questionsInput = new QuestionInputBox("Nhập dữ liệu câu hỏi");
         questionBank = new QuestionBank(questionsInput.getFile10(), questionsInput.getFile20(), questionsInput.getFile30());
 
@@ -163,6 +169,10 @@ public class HTMSoftware extends Application {
         return questionArea;
     }
 
+    /**
+     * Create a Info window to collect competitors information
+     * @return An array of String with names of competitors.
+     */
     private String[] getInfo() {
         InfoBox infoBox = new InfoBox();
         infoBox.display("Nhập dữ liệu thí sinh");

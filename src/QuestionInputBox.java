@@ -11,6 +11,9 @@ import javafx.stage.StageStyle;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * The class creating window to get the input for questions
+ */
 public class QuestionInputBox {
 
     private Stage window;
